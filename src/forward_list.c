@@ -42,7 +42,7 @@ flist_insert(FList *flist,
 
   item->next = flist->first;
   if (!flist->last) {
-#if DEBUG
+#ifdef DEBUG
     assert(!flist->first && flist->count == 0);
 #endif
     flist->last = item;
@@ -63,7 +63,7 @@ flist_append(FList *flist,
   item->next = NULL; /* we are appending it */
 
   if (flist->last) {
-#if DEBUG
+#ifdef DEBUG
     assert(flist->first && flist->count > 0);
 #endif
     flist->last->next = item;
@@ -71,7 +71,7 @@ flist_append(FList *flist,
 
   /* if last == NULL then first == NULL too */
   else {
-#if DEBUG
+#ifdef DEBUG
     assert(!flist->first && flist->count == 0);
 #endif
     flist->first = item;
@@ -101,7 +101,7 @@ flist_perform_rm(FList     *flist,
   if (flist->first == tofree
       && flist->last == tofree) {
     flist->first = flist->last = NULL;
-#if DEBUG
+#ifdef DEBUG
     assert(flist->count == 1);
 #endif
     flist->count = 0;
@@ -111,14 +111,14 @@ flist_perform_rm(FList     *flist,
 
   if (flist->first == tofree) {
     flist->first = tofree->next;
-#if DEBUG
+#ifdef DEBUG
     assert(flist->first);
 #endif
   }
 
   if (flist->last == tofree) {
     flist->last = prev;
-#if DEBUG
+#ifdef DEBUG
     assert(flist->last);
 #endif
   }
